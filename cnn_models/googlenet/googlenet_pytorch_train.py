@@ -1,6 +1,8 @@
 import os
 import time
 import copy
+from typing import Tuple
+from collections import namedtuple
 
 import torch
 import torch.nn as nn
@@ -90,6 +92,10 @@ def train_model(model, criterion, dataloaders, optimizer, scheduler, num_epochs=
                 # 순전파
                 with torch.set_grad_enabled(phase == 'train'):
                     outputs = model(inputs)
+                    # outputs이 namedTuple일 경우 보조 분류기에 대한 처리 필요
+                    if isinstance(outputs, Tuple):
+                        outputs = outputs[0]
+                    
                     _, preds = torch.max(outputs, 1)
                     loss = criterion(outputs, labels)
 

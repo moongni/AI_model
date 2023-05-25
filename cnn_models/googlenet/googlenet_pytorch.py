@@ -116,10 +116,6 @@ class Inception(nn.Module):
         branch2 = self.branch2(x)
         branch3 = self.branch3(x)
         branch4 = self.branch4(x)
-        print('size of brach1', torch.tensor(branch1).shape)
-        print('size of branch2', torch.tensor(branch2).shape)
-        print('size of branch3', torch.tensor(branch3).shape)
-        print('size of branch4', torch.tensor(branch4).shape)
         outputs = [branch1, branch2, branch3, branch4]
         return outputs
 
@@ -257,7 +253,6 @@ class GoogLeNet(nn.Module):
 
         # N x 192 x 28 x 28
         x = self.inception3a(x)
-        print('shape after inception3a', x.shape)
         # N x 256 x 28 x 28
         x = self.inception3b(x)
         # N x 480 x 28 x 28
