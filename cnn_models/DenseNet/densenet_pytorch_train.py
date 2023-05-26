@@ -7,10 +7,8 @@ import torch
 import torch.nn as nn
 from torch.optim import lr_scheduler
 import torch.optim as optim
-import torch.backends.cudnn as cudnn
-import numpy as np
 import torchvision
-from torchvision import models, transforms
+from torchvision import transforms
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import imshow
 
@@ -83,11 +81,10 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 
             running_loss = 0.0
             running_corrects = 0
-            iteration_count=0
+            iteration_count = 0
             # Iterate over data.
             for inputs, labels in dataloaders[phase]:
-                iteration_count+=len(inputs)
-                print('Iteration {}/{}'.format(iteration_count,dataset_sizes[phase]))
+                iteration_count += len(inputs)
                 inputs = inputs.to(device)
                 labels = labels.to(device)
 
