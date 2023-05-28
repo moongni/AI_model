@@ -82,11 +82,11 @@ model = build_model(
     rnn_units=rnn_units,
     batch_size=BATCH_SIZE
 )
-model.summary()
 
 
 def loss(labels, logits):
     return tf.keras.losses.sparse_categorical_crossentropy(labels, logits, from_logits=True)
+
 
 model.compile(optimizer='adam', loss=loss)
 # 훈련 체크포인트
@@ -147,6 +147,7 @@ print(generate_text(model, start_string=u"ROMEO: "))
 
 
 if __name__ == "__main__":
+    ...
     # print(tf.__version__)
 
     # # RNN Test
@@ -177,46 +178,46 @@ if __name__ == "__main__":
     # print(final_memory_state.shape)
     # print(final_carry_state.shape)
 
-    # 텍스트 길이
-    print(f"텍스트의 길이: {len(text)}자")
-    # 처음 250자
-    print(text[:250])
-    # 파일 고유 문자 수
-    print(f"고유 문자 수 {len(vocab)}자")
-    # 각 문자에 대한 정수 표현을 만듦
-    print('{')
-    for char,_ in zip(char2idx, range(20)):
-        print('  {:4s}: {:3d},'.format(repr(char), char2idx[char]))
-    print('  ...\n}')
-    # 텍스트에서 처음 13개의 문자가 숫자로 어떻게 매핑되었는지를 보여줍니다
-    print ('{} ---- 문자들이 다음의 정수로 매핑되었습니다 ---- > {}'.format(repr(text[:13]), text_as_int[:13]))
-    # 훈련 셋 5개 확인
-    for i in char_dataset.take(5):
-        print(idx2char[i.numpy()])
-    # 배치크기 시퀀스 확인
-    for item in sequences.take(5):
-        print(repr(''.join(idx2char[item.numpy()])))
-        print(len(item.numpy()))
-    # # 전처리 된 텍스트 확인
-    # for input_example, target_example in dataset.take(1):
-    #     print ('입력 데이터: ', repr(''.join(idx2char[input_example.numpy()])))
-    #     print ('타깃 데이터: ', repr(''.join(idx2char[target_example.numpy()])))
-    # for i, (input_idx, target_idx) in enumerate(zip(input_example[:5], target_example[:5])):
-    #     print("{:4d}단계".format(i))
-    #     print("  입력: {} ({:s})".format(input_idx, repr(idx2char[input_idx])))
-    #     print("  예상 출력: {} ({:s})".format(target_idx, repr(idx2char[target_idx])))
-    # 모델 output 확인
-    for input_example_batch, target_example_batch in dataset.take(1):
-        example_batch_predictions = model(input_example_batch)
-        print(example_batch_predictions.shape, "# (배치 크기, 시퀀스 길이, 어휘 사전 크기)")
-        # 배치의 첫 번째 샘플링
-        sampled_indices = tf.random.categorical(example_batch_predictions[0], num_samples=1)
-        sampled_indices = tf.squeeze(sampled_indices,axis=-1).numpy()
-        print(sampled_indices)
-        # 훈련되지 않은 모델에 의해 예측된 텍스트
-        print("입력: \n", repr("".join(idx2char[input_example_batch[0]])))
-        print()
-        print("예측된 다음 문자: \n", repr("".join(idx2char[sampled_indices])))
-        example_batch_loss = loss(target_example_batch, example_batch_predictions)
-        print("예측 배열 크기(shape): ", example_batch_predictions.shape, " # (배치 크기, 시퀀스 길이, 어휘 사전 크기")
-        print("스칼라 손실:          ", example_batch_loss.numpy().mean())
+    # # 텍스트 길이
+    # print(f"텍스트의 길이: {len(text)}자")
+    # # 처음 250자
+    # print(text[:250])
+    # # 파일 고유 문자 수
+    # print(f"고유 문자 수 {len(vocab)}자")
+    # # 각 문자에 대한 정수 표현을 만듦
+    # print('{')
+    # for char,_ in zip(char2idx, range(20)):
+    #     print('  {:4s}: {:3d},'.format(repr(char), char2idx[char]))
+    # print('  ...\n}')
+    # # 텍스트에서 처음 13개의 문자가 숫자로 어떻게 매핑되었는지를 보여줍니다
+    # print ('{} ---- 문자들이 다음의 정수로 매핑되었습니다 ---- > {}'.format(repr(text[:13]), text_as_int[:13]))
+    # # 훈련 셋 5개 확인
+    # for i in char_dataset.take(5):
+    #     print(idx2char[i.numpy()])
+    # # 배치크기 시퀀스 확인
+    # for item in sequences.take(5):
+    #     print(repr(''.join(idx2char[item.numpy()])))
+    #     print(len(item.numpy()))
+    # # # 전처리 된 텍스트 확인
+    # # for input_example, target_example in dataset.take(1):
+    # #     print ('입력 데이터: ', repr(''.join(idx2char[input_example.numpy()])))
+    # #     print ('타깃 데이터: ', repr(''.join(idx2char[target_example.numpy()])))
+    # # for i, (input_idx, target_idx) in enumerate(zip(input_example[:5], target_example[:5])):
+    # #     print("{:4d}단계".format(i))
+    # #     print("  입력: {} ({:s})".format(input_idx, repr(idx2char[input_idx])))
+    # #     print("  예상 출력: {} ({:s})".format(target_idx, repr(idx2char[target_idx])))
+    # # 모델 output 확인
+    # for input_example_batch, target_example_batch in dataset.take(1):
+    #     example_batch_predictions = model(input_example_batch)
+    #     print(example_batch_predictions.shape, "# (배치 크기, 시퀀스 길이, 어휘 사전 크기)")
+    #     # 배치의 첫 번째 샘플링
+    #     sampled_indices = tf.random.categorical(example_batch_predictions[0], num_samples=1)
+    #     sampled_indices = tf.squeeze(sampled_indices,axis=-1).numpy()
+    #     print(sampled_indices)
+    #     # 훈련되지 않은 모델에 의해 예측된 텍스트
+    #     print("입력: \n", repr("".join(idx2char[input_example_batch[0]])))
+    #     print()
+    #     print("예측된 다음 문자: \n", repr("".join(idx2char[sampled_indices])))
+    #     example_batch_loss = loss(target_example_batch, example_batch_predictions)
+    #     print("예측 배열 크기(shape): ", example_batch_predictions.shape, " # (배치 크기, 시퀀스 길이, 어휘 사전 크기")
+    #     print("스칼라 손실:          ", example_batch_loss.numpy().mean())
