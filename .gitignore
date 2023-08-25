@@ -1,6 +1,7 @@
 **/__pycache__/
-**/.DS_store/
+**/.DS_Store/
 **/data/
 
+**/*submission.csv
 *.zip
 **/open/
